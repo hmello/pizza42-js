@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/15429472-dd00-4a17-90a9-94256a6fb414/resourceGroups/DefaultResourceGroup-CUS/providers/Microsoft.Web/sites/Pizza42",
+    "appService.deploySubpath": "."
+}

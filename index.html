@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="h-100">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pizza 42 - Answer to all your questions</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/monokai-sublime.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css"
+      integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css"
+      integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.auth0.com/js/auth0-samples-theme/1.0/css/auth0-theme.min.css"
+    />
+  </head>
+
+  <body class="h-100">
+    <div id="app" class="h-100 d-flex flex-column">
+      <div class="nav-container">
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+          <div class="container">
+            <div class="navbar-brand logo"></div>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a href="/" class="nav-link route-link">Home</a>
+                </li>
+              </ul>
+              <ul class="navbar-nav d-none d-md-block">
+                <!-- Login button: show if NOT authenticated -->
+                <li class="nav-item auth-invisible">
+                  <button
+                    id="qsLoginBtn"
+                    onclick="login()"
+                    class="btn btn-primary btn-margin auth-invisible hidden"
+                  >
+                    Log in
+                  </button>
+                </li>
+                <!-- / Login button -->
+
+                <!-- Fullsize dropdown: show if authenticated -->
+                <li class="nav-item dropdown auth-visible hidden">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="profileDropDown"
+                    data-toggle="dropdown"
+                  >
+                    <!-- Profile image should be set to the profile picture from the id token -->
+                    <img
+                      alt="Profile picture"
+                      class="nav-user-profile profile-image rounded-circle"
+                      width="50"
+                    />
+                  </a>
+                  <div class="dropdown-menu">
+                    <!-- Show the user's full name from the id token here -->
+                    <div class="dropdown-header nav-user-name user-name"></div>
+                    <a
+                      href="/profile"
+                      class="dropdown-item dropdown-profile route-link"
+                    >
+                      <i class="fas fa-user mr-3"></i> Profile
+                    </a>
+                    <a
+                      href="#"
+                      class="dropdown-item"
+                      id="qsLogoutBtn"
+                      onclick="logout()"
+                    >
+                      <i class="fas fa-power-off mr-3"></i> Log out
+                    </a>
+                  </div>
+                </li>
+                <!-- /Fullsize dropdown -->
+              </ul>
+
+              <!-- Responsive login button: show if NOT authenticated -->
+              <ul class="navbar-nav d-md-none auth-invisible">
+                <button
+                  class="btn btn-primary btn-block auth-invisible hidden"
+                  id="qsLoginBtn"
+                  onclick="login()"
+                >
+                  Log in
+                </button>
+              </ul>
+              <!-- /Responsive login button -->
+
+              <!-- Responsive profile dropdown: show if authenticated -->
+              <ul
+                class="navbar-nav d-md-none auth-visible hidden justify-content-between"
+                style="min-height: 125px"
+              >
+                <li class="nav-item">
+                  <span class="user-info">
+                    <!-- Profile image should be set to the profile picture from the id token -->
+                    <img
+                      alt="Profile picture"
+                      class="nav-user-profile d-inline-block profile-image rounded-circle mr-3"
+                      width="50"
+                    />
+                    <!-- Show the user's full name from the id token here -->
+                    <h6 class="d-inline-block nav-user-name user-name"></h6>
+                  </span>
+                </li>
+                <li>
+                  <i class="fas fa-user mr-3"></i>
+                  <a href="/profile" class="route-link">Profile</a>
+                </li>
+
+                <li>
+                  <i class="fas fa-power-off mr-3"></i>
+                  <a href="#" id="qsLogoutBtn" onclick="logout()">Log out</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div id="main-content" class="container mt-5 flex-grow-1">
+        <div id="content-home" class="page">
+          <div class="text-center hero">
+            <img class="mb-3 app-logo" src="/images/logo.png" alt="Pizza 42" />
+              <h1 class="mb-4">Pizza 42 - The answer to all your questions</h1>              
+          </div>
+
+          <div class="next-steps">
+            
+            <h2 class="my-5 text-center">Choose your Pizza</h2>
+            <!-- validate stuff 
+            <div class="auth-visible user-name">Welcome - </div>
+            Email verified = <div class="user-email_verified"></div>
+          
+          <button id="btn-call-api" disabled="true" onclick="callApi('pizza1')">Call Api</button>
+          -->            
+
+          <pre id="api-call-result"></pre>
+          
+            <div class="row">
+              <div class="col-md-5 mb-4">
+                <h6 class="mb-3">
+                  <a href="https://auth0.com/docs/connections">
+                    <i class="fas fa-link"></i> Double Cheese Pizza                    
+                  </a>
+                  <img src="/images/1_pizza.jpg" class="pizza_img">
+                </h6>
+                <p>
+                  This is a very popular veg. pizza which has a double thick layer of cheese. The double cheese pizza is very popular because of the lovers of cheese in this world are many. It is indeed one of the best and tasty pizzas among the vegetarian flavours. These are plain pizzas loaded with oodles of extra cheese which makes it delicious and most lip smacking.
+                </p>
+                <button onclick="callApi('pizza1')" class="order-pizza">Order Now</button>                
+              </div>
+
+              <div class="col-md"></div>
+
+              <div class="col-md-5 mb-4">
+                <h6 class="mb-3">
+                  <a href="https://auth0.com/docs/multifactor-authentication">
+                    <i class="fas fa-link"></i> Mexican Green Wave
+                  </a>
+                  <img src="/images/2_pizza.jpg" class="pizza_img">
+                </h6>
+                <p>
+                  This is another unique recipe of American pizza which mane is influenced by the Mexican Waves. Mexican Green Wave Pizza is loaded with crunchy onions, crispy capsicum, juicy tomato and jalapeno. This is a spicy flavour which is topped my liberal sprinkling of the exotic Mexican herbs. This is a very popular pizza among the veggies and is a common flavour among those who loves spice pizzas.
+                </p>
+                <button onclick="callApi('pizza2')" class="order-pizza">Order Now</button>                
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5 mb-4">
+                <h6 class="mb-3">
+                  <a href="https://auth0.com/docs/anomaly-detection">
+                    <i class="fas fa-link"></i> Margherita Pizza
+                  </a>
+                  <img src="/images/3_pizza.jpg" class="pizza_img">
+                </h6>
+                <p>
+                  Pizza Margherita is a very common and a popular menu in the Asian countries. These pizzas are delicious and are made with single topping of Cheese. The Margherita Pizzas are medium spicy and are actually very pleasant to taste. The pizzas are preferred by the customers who like a simple pizza topping. These Pizzas has no extra toppings and are plain cheese pizzas.
+                </p>
+                <button onclick="callApi('pizza3')" class="order-pizza">Order Now</button>                
+              </div>
+
+              <div class="col-md"></div>
+
+              <div class="col-md-5 mb-4">
+                <h6 class="mb-3">
+                  <a href="https://auth0.com/docs/rules">
+                    <i class="fas fa-link"></i> Cheese and Pepperoni
+                  </a>
+                  <img src="/images/4_pizza.jpg" class="pizza_img">
+                </h6>
+                <p>
+                  This is one of the most popular flavours of pizza in the world. This is Americans favourite flavour as well. The pepperoni is a spicy food, an Italian-American variety of salami (a dry sausage) usually made from cured pork and beef. These are mostly chopped ham cut in circular thin pieces and placed on the pizza to form the topping. This pizza with pepperoni is then topped with a generous load of extra cheese. Pepperoni Pizzas are popular all over the world and is really a tasty flavour of pizza. However, in country like India, the pepperoni pizzas actually have chicken slices in most outlets and it still manages to be of equal taste as with the ham.
+                </p>
+                <button onclick="callApi('pizza4')" class="order-pizza">Order Now</button>                
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Profile Part -->
+        <div class="page" id="content-profile">
+          <div class="container">
+            <div class="row align-items-center profile-header">
+              <div class="col-md-2">
+                <img
+                  alt="User's profile picture"
+                  class="rounded-circle img-fluid profile-image mb-3 mb-md-0"
+                />
+              </div>
+              <div class="col-md">
+                <h2 class="user-name"></h2>
+                <p class="lead text-muted user-email"></p>
+              </div>
+            </div>
+
+            <div class="row">
+              <pre class="rounded">
+                <code id="profile-data" class="json"></code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="bg-light text-center p-5">
+        <div class="logo"></div>
+        <p>
+          Sample project provided by
+          <a href="https://auth0.com">Auth0</a>
+        </p>
+      </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
