@@ -13,5 +13,8 @@ label {
 {
   height: 250px;
   width: 445px;
-  
+}
+h3{ 
+  color: green;
+  text-align: center;
 }
