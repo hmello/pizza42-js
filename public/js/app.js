@@ -156,7 +156,7 @@ const callApi = async (pizza) => {
     });
 
     // Fetch the JSON result
-    const responseData = await response.json();
+    const responseData = await response.json();    
 
     // Display the result in the output element
     const responseElement = document.getElementById("api-call-result");    
@@ -166,10 +166,15 @@ const callApi = async (pizza) => {
     
   }
   else
-  alert("Cannot place order until email is verified");
+    alert("Cannot place order until email is verified");
 
 } catch (e) {
     // Display errors in the console
     console.error(e);
+    
+    const responseElement = document.getElementById("api-call-fail");    
+    $('#exampleModal').modal('show');
+    
+    responseElement.innerText = "FAILED - Cannot request pizza";
   }
 };
