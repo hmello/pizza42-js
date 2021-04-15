@@ -1,5 +1,6 @@
 // The Auth0 client, initialized in configureClient()
 let auth0 = null;
+let auth0_mgm = null;
 
 /**
  * Starts the authentication flow
@@ -51,7 +52,8 @@ const configureClient = async () => {
   auth0 = await createAuth0Client({
     domain: config.domain,
     client_id: config.clientId,    
-    audience: config.audience   // NEW - add the audience value    
+    audience: config.audience,   // NEW - add the audience value    
+    scope: config.scope
   });
 };
 
@@ -129,28 +131,25 @@ window.onload = async () => {
 };
 
 const callApi = async (pizza) => {
-  try {
-
-    /*
-    const differentAudienceOptions = {
-      audience: "https://dev-tpyx5cjs.us.auth0.com/api/v2/"      
-    };
-    */
+  try {    
     
-   const user = await auth0.getUser();
-   console.log(user.email_verified);
+   const user = await auth0.getUser();   
 
    if(user.email_verified == true)
    {
+    const differentAudienceOptions = {            
+      scope: "write:pizza"
+    };
 
     // Get the access token from the Auth0 client
-    const token = await auth0.getTokenSilently();
+    const token = await auth0.getTokenSilently(differentAudienceOptions);
 
     //console.log(token);
+    
 
     // Make the call to the API, setting the token
     // in the Authorization header
-    const response = await fetch("/api/external", {
+    const response = await fetch("/api/external?pizza=" + pizza, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -160,18 +159,11 @@ const callApi = async (pizza) => {
     const responseData = await response.json();
 
     // Display the result in the output element
-    const responseElement = document.getElementById("api-call-result");
-
-    responseElement.innerText = JSON.stringify(responseData, {}, 2) + " ***** " + pizza;
-
-/*    
-
-    const responseUpdateMeta = await fetch("https://dev-tpyx5cjs.auth0.com/api/v2/users/user_id",{
-      headers:{
-
-      }
-    })
-    */
+    const responseElement = document.getElementById("api-call-result");    
+    $('#exampleModal').modal('show');
+    
+    responseElement.innerText = "Your pizza was requested!"
+    
   }
   else
   alert("Cannot place order until email is verified");
