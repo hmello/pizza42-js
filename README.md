@@ -13,7 +13,7 @@ To specify the application client ID and domain, make a copy of `auth_config.jso
 ```json
 {
   "domain": "dev-tpyx5cjs.us.auth0.com",
-  "clientId": "HAXk965UdVByBlKY6cIQUZLTxnsf0F7B"
+  
 }
 ```
 
